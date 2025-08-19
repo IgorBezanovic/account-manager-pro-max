@@ -1,14 +1,36 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import React from "react";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Chip,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 
-export function PricingSection() {
-  const plans = [
+interface Plan {
+  name: string;
+  subtitle: string;
+  price: string;
+  features: string[];
+  popular: boolean;
+}
+
+export const PricingSection: React.FC = () => {
+  const plans: Plan[] = [
     {
       name: "Starter",
       subtitle: "For individuals & self-employed",
       price: "€29",
-      features: ["Manage your own company", "Basic document storage", "Automated eUprava reporting", "Email support"],
+      features: [
+        "Manage your own company",
+        "Basic document storage",
+        "Automated eUprava reporting",
+        "Email support",
+      ],
       popular: false,
     },
     {
@@ -49,55 +71,140 @@ export function PricingSection() {
       ],
       popular: false,
     },
-  ]
+  ];
 
   return (
-    <section id="pricing" className="py-20 bg-muted">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="font-serif font-bold text-3xl lg:text-4xl text-foreground mb-4">
+    <Box component="section" id="pricing" sx={{ py: 10, bgcolor: "grey.100" }}>
+      <Container maxWidth="lg">
+        <Box textAlign="center" mb={8}>
+          <Typography
+            variant="h4"
+            sx={{
+              fontFamily: "serif",
+              fontWeight: 700,
+              fontSize: { xs: "2rem", lg: "2.5rem" },
+              color: "text.primary",
+              mb: 2,
+            }}
+          >
             Choose the perfect plan for your business
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: "1.25rem",
+              color: "text.secondary",
+              maxWidth: "700px",
+              mx: "auto",
+            }}
+          >
             Flexible pricing options that scale with your accounting practice
-          </p>
-        </div>
+          </Typography>
+        </Box>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <Grid container spacing={4}>
           {plans.map((plan, index) => (
-            <Card key={index} className={`relative bg-card border-border ${plan.popular ? "ring-2 ring-primary" : ""}`}>
-              {plan.popular && (
-                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground">
-                  Most Popular
-                </Badge>
-              )}
-              <CardHeader className="text-center">
-                <CardTitle className="font-serif font-bold text-2xl text-card-foreground">{plan.name}</CardTitle>
-                <p className="text-muted-foreground text-sm">{plan.subtitle}</p>
-                <div className="mt-4">
-                  <span className="text-4xl font-bold text-foreground">{plan.price}</span>
-                  <span className="text-muted-foreground">/month</span>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <ul className="space-y-3">
-                  {plan.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center text-sm">
-                      <span className="text-accent mr-2">✓</span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  className={`w-full ${plan.popular ? "bg-primary hover:bg-primary/90" : "bg-secondary hover:bg-secondary/90"}`}
-                >
-                  Get Started
-                </Button>
-              </CardContent>
-            </Card>
+            <Grid size={{ xs: 12, md: 6, lg: 3 }} key={index}>
+              <Card
+                sx={{
+                  position: "relative",
+                  border: plan.popular ? "2px solid" : "1px solid",
+                  borderColor: plan.popular ? "primary.main" : "divider",
+                  boxShadow: plan.popular ? 6 : 2,
+                  transition: "box-shadow 0.3s ease",
+                  "&:hover": {
+                    boxShadow: 8,
+                  },
+                }}
+              >
+                {plan.popular && (
+                  <Chip
+                    label="Most Popular"
+                    color="primary"
+                    size="small"
+                    sx={{
+                      position: "absolute",
+                      top: -12,
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      fontWeight: 500,
+                    }}
+                  />
+                )}
+
+                <CardHeader
+                  sx={{ textAlign: "center", pt: 4 }}
+                  title={
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontFamily: "serif",
+                        fontWeight: 700,
+                        fontSize: "1.5rem",
+                        color: "text.primary",
+                      }}
+                    >
+                      {plan.name}
+                    </Typography>
+                  }
+                  subheader={
+                    <Typography variant="body2" color="text.secondary">
+                      {plan.subtitle}
+                    </Typography>
+                  }
+                />
+
+                <Box textAlign="center" mt={2}>
+                  <Typography variant="h4" sx={{ fontWeight: "bold", color: "text.primary" }}>
+                    {plan.price}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    /month
+                  </Typography>
+                </Box>
+
+                <CardContent sx={{ mt: 4 }}>
+                  <Box component="ul" sx={{ listStyle: "none", p: 0, mb: 4 }}>
+                    {plan.features.map((feature, featureIndex) => (
+                      <Box
+                        component="li"
+                        key={featureIndex}
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          fontSize: "0.875rem",
+                          color: "text.secondary",
+                          mb: 1.5,
+                        }}
+                      >
+                        <Box component="span" sx={{ color: "primary.main", mr: 1 }}>
+                          ✓
+                        </Box>
+                        {feature}
+                      </Box>
+                    ))}
+                  </Box>
+
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color={plan.popular ? "primary" : "secondary"}
+                    sx={{
+                      fontWeight: 600,
+                      textTransform: "none",
+                      "&:hover": {
+                        opacity: 0.9,
+                      },
+                    }}
+                  >
+                    Get Started
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
           ))}
-        </div>
-      </div>
-    </section>
-  )
-}
+        </Grid>
+      </Container>
+    </Box>
+  );
+};

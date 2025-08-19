@@ -1,31 +1,83 @@
-import { Button } from "@/components/ui/button"
+import React from "react";
+import { Box, Button, Container, Typography, Stack } from "@mui/material";
 
-export function FinalCTASection() {
+export const FinalCTASection: React.FC = () => {
   return (
-    <section className="py-20 bg-gradient-to-r from-primary to-accent">
-      <div className="container mx-auto px-4 text-center">
-        <div className="max-w-3xl mx-auto space-y-8">
-          <h2 className="font-serif font-black text-3xl lg:text-5xl text-primary-foreground">
+    <Box
+      component="section"
+      sx={{
+        py: 10,
+        background: "linear-gradient(to right, #3b82f6, #06b6d4)", // Replace with your theme's primary/accent if needed
+        color: "#fff",
+      }}
+    >
+      <Container maxWidth="md" sx={{ textAlign: "center" }}>
+        <Box sx={{ maxWidth: 800, mx: "auto", mb: 6 }}>
+          <Typography
+            variant="h3"
+            sx={{
+              fontFamily: "serif",
+              fontWeight: 900,
+              fontSize: { xs: "2rem", lg: "3rem" },
+              color: "primary.contrastText",
+              mb: 3,
+            }}
+          >
             Start simplifying your accounting today!
-          </h2>
-          <p className="text-xl text-primary-foreground/90 leading-relaxed">
-            Join thousands of Serbian accounting professionals who have already transformed their practice with Account
-            Manager Pro Max.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-background text-foreground hover:bg-background/90 text-lg px-12 py-4">
-              Try it Free
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary text-lg px-12 py-4 bg-transparent"
-            >
-              Contact Sales
-            </Button>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              color: "rgba(255,255,255,0.9)",
+              lineHeight: 1.6,
+              fontSize: "1.25rem",
+            }}
+          >
+            Join thousands of Serbian accounting professionals who have already transformed their practice with Account Manager Pro Max.
+          </Typography>
+        </Box>
+
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={2}
+          justifyContent="center"
+        >
+          <Button
+            variant="contained"
+            size="large"
+            sx={{
+              backgroundColor: "#fff",
+              color: "#000",
+              px: 6,
+              py: 2,
+              fontSize: "1.125rem",
+              "&:hover": {
+                backgroundColor: "rgba(255,255,255,0.9)",
+              },
+            }}
+          >
+            Try it Free
+          </Button>
+          <Button
+            variant="outlined"
+            size="large"
+            sx={{
+              borderColor: "#fff",
+              color: "#fff",
+              px: 6,
+              py: 2,
+              fontSize: "1.125rem",
+              backgroundColor: "transparent",
+              "&:hover": {
+                backgroundColor: "#fff",
+                color: "#3b82f6",
+              },
+            }}
+          >
+            Contact Sales
+          </Button>
+        </Stack>
+      </Container>
+    </Box>
+  );
+};

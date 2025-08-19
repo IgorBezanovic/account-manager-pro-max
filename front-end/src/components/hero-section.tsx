@@ -1,38 +1,113 @@
-import { Button } from "@/components/ui/button"
+import React from "react";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Typography,
+  Paper,
+} from "@mui/material";
 
-export function HeroSection() {
+export const HeroSection: React.FC = () => {
   return (
-    <section className="bg-gradient-to-br from-background to-muted py-20 lg:py-32">
-      <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
-            <h1 className="font-serif font-black text-4xl lg:text-6xl text-foreground leading-tight">
-              The ultimate app for accountants and companies in Serbia
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              Simplify your work with clients, automate reporting to eUprava, and manage everything from one place.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8 py-4">
-                Start Free Trial
-              </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-4 bg-transparent">
-                View Pricing
-              </Button>
-            </div>
-          </div>
+    <Box
+      component="section"
+      sx={{
+        py: { xs: 10, lg: 16 },
+        background: "linear-gradient(to bottom right, #f5f5f5, #e0e0e0)", // Replace with theme if needed
+      }}
+    >
+      <Container maxWidth="lg">
+        <Grid container spacing={6} alignItems="center">
+          <Grid size={{ xs: 12, lg: 6 }} >
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              <Typography
+                variant="h2"
+                sx={{
+                  fontFamily: "serif",
+                  fontWeight: 900,
+                  fontSize: { xs: "2rem", lg: "3.75rem" },
+                  color: "text.primary",
+                  lineHeight: 1.2,
+                }}
+              >
+                The ultimate app for accountants and companies in Serbia
+              </Typography>
 
-          <div className="relative">
-            <div className="bg-card rounded-2xl p-8 shadow-lg">
-              <img
-                src="@/assets/modern-accountant-automation.png"
+              <Typography
+                variant="body1"
+                sx={{
+                  fontSize: "1.25rem",
+                  color: "text.secondary",
+                  lineHeight: 1.6,
+                }}
+              >
+                Simplify your work with clients, automate reporting to eUprava,
+                and manage everything from one place.
+              </Typography>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column", sm: "row" },
+                  gap: 2,
+                }}
+              >
+                <Button
+                  variant="contained"
+                  size="large"
+                  sx={{
+                    px: 4,
+                    py: 2,
+                    fontSize: "1.125rem",
+                    backgroundColor: "primary.main",
+                    color: "primary.contrastText",
+                    "&:hover": {
+                      backgroundColor: "primary.dark",
+                    },
+                  }}
+                >
+                  Start Free Trial
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  sx={{
+                    px: 4,
+                    py: 2,
+                    fontSize: "1.125rem",
+                    backgroundColor: "transparent",
+                  }}
+                >
+                  View Pricing
+                </Button>
+              </Box>
+            </Box>
+          </Grid>
+
+          <Grid size={{ xs: 12, lg: 6 }}>
+            <Paper
+              elevation={6}
+              sx={{
+                borderRadius: 4,
+                padding: 4,
+                backgroundColor: "background.paper",
+              }}
+            >
+              <Box
+                component="img"
+                src="/assets/modern-accountant-automation.png"
                 alt="Accountant working with automated tools"
-                className="w-full h-auto rounded-lg"
+                sx={{
+                  width: "100%",
+                  height: "auto",
+                  borderRadius: 2,
+                }}
               />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
+            </Paper>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
+  );
+};

@@ -1,7 +1,21 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import React from "react";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Container,
+  Typography,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export function FAQSection() {
-  const faqs = [
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+export const FAQSection: React.FC = () => {
+  const faqs: FAQ[] = [
     {
       question: "How much does Account Manager Pro Max cost?",
       answer:
@@ -32,27 +46,57 @@ export function FAQSection() {
       answer:
         "Yes, we support data import from most popular accounting software used in Serbia. Our team can assist with the migration process to ensure a smooth transition.",
     },
-  ]
+  ];
 
   return (
-    <section id="faq" className="py-20 bg-background">
-      <div className="container mx-auto px-4 max-w-3xl">
-        <div className="text-center mb-16">
-          <h2 className="font-serif font-bold text-3xl lg:text-4xl text-foreground mb-4">Frequently Asked Questions</h2>
-          <p className="text-xl text-muted-foreground">Everything you need to know about Account Manager Pro Max</p>
-        </div>
+    <Box component="section" id="faq" sx={{ py: 10, bgcolor: "background.default" }}>
+      <Container maxWidth="md">
+        <Box textAlign="center" mb={8}>
+          <Typography
+            variant="h4"
+            sx={{
+              fontFamily: "serif",
+              fontWeight: 700,
+              fontSize: { xs: "2rem", lg: "2.5rem" },
+              color: "text.primary",
+              mb: 2,
+            }}
+          >
+            Frequently Asked Questions
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: "1.25rem",
+              color: "text.secondary",
+            }}
+          >
+            Everything you need to know about Account Manager Pro Max
+          </Typography>
+        </Box>
 
-        <Accordion type="single" collapsible className="space-y-4">
-          {faqs.map((faq, index) => (
-            <AccordionItem key={index} value={`item-${index}`} className="border border-border rounded-lg px-6">
-              <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed">{faq.answer}</AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
-    </section>
-  )
-}
+        {faqs.map((faq, index) => (
+          <Accordion key={index} sx={{ mb: 2, borderRadius: 2, border: "1px solid", borderColor: "divider" }}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              sx={{
+                fontWeight: 600,
+                color: "text.primary",
+                "& .MuiAccordionSummary-content": {
+                  marginY: 1,
+                },
+              }}
+            >
+              {faq.question}
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography variant="body2" sx={{ color: "text.secondary", lineHeight: 1.6 }}>
+                {faq.answer}
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </Container>
+    </Box>
+  );
+};

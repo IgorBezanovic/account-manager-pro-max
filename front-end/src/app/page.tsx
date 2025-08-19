@@ -1,19 +1,23 @@
-import { Header } from "@/components/header"
-import { HeroSection } from "@/components/hero-section"
-import { FeaturesSection } from "@/components/features-section"
-import { PricingSection } from "@/components/pricing-section"
-import { WhyChooseUsSection } from "@/components/why-choose-us-section"
-import { TestimonialsSection } from "@/components/testimonials-section"
-import { FAQSection } from "@/components/faq-section"
-import { FinalCTASection } from "@/components/final-cta-section"
-import { Footer } from "@/components/footer"
-import "./globals.css"
+import React from "react";
+import { Box, CssBaseline } from "@mui/material";
 
-export default function HomePage() {
+// Section components
+import { FAQSection } from "../components/faq-section";
+import { FeaturesSection } from "../components/features-section";
+import { FinalCTASection } from "../components/final-cta-section";
+import { Footer } from "../components/footer";
+import { Header } from "../components/header";
+import { HeroSection } from "../components/hero-section";
+import { PricingSection } from "../components/pricing-section";
+import { TestimonialsSection } from "../components/testimonials-section";
+import { WhyChooseUsSection } from "../components/why-choose-us-section";
+
+const LandingPage: React.FC = () => {
   return (
-    <div className="min-h-screen">
+    <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      <CssBaseline />
       <Header />
-      <main>
+      <Box component="main" sx={{ flexGrow: 1 }}>
         <HeroSection />
         <FeaturesSection />
         <WhyChooseUsSection />
@@ -21,8 +25,10 @@ export default function HomePage() {
         <TestimonialsSection />
         <FAQSection />
         <FinalCTASection />
-      </main>
+      </Box>
       <Footer />
-    </div>
-  )
-}
+    </Box>
+  );
+};
+
+export default LandingPage;

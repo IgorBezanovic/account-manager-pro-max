@@ -1,36 +1,94 @@
-import { Button } from "@/components/ui/button"
+import React from "react";
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  Link,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 
-export function Header() {
+export const Header: React.FC = () => {
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+
   return (
-    <header className="bg-background border-b border-border sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">AM</span>
-          </div>
-          <span className="font-serif font-bold text-xl text-foreground">Account Manager Pro Max</span>
-        </div>
+    <AppBar
+      position="sticky"
+      elevation={0}
+      sx={{
+        bgcolor: "background.default",
+        borderBottom: 1,
+        borderColor: "divider",
+        zIndex: theme.zIndex.appBar,
+      }}
+    >
+      <Container maxWidth="lg">
+        <Toolbar disableGutters sx={{ py: 2, justifyContent: "space-between" }}>
+          <Box display="flex" alignItems="center" gap={1}>
+            <Box
+              sx={{
+                width: 32,
+                height: 32,
+                bgcolor: "primary.main",
+                borderRadius: 2,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Typography
+                variant="body2"
+                sx={{ color: "primary.contrastText", fontWeight: "bold" }}
+              >
+                AM
+              </Typography>
+            </Box>
+            <Typography
+              variant="h6"
+              sx={{ fontFamily: "serif", fontWeight: "bold", color: "text.primary" }}
+            >
+              Account Manager Pro Max
+            </Typography>
+          </Box>
 
-        <nav className="hidden md:flex items-center space-x-8">
-          <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">
-            Features
-          </a>
-          <a href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors">
-            Pricing
-          </a>
-          <a href="#testimonials" className="text-muted-foreground hover:text-foreground transition-colors">
-            Testimonials
-          </a>
-          <a href="#faq" className="text-muted-foreground hover:text-foreground transition-colors">
-            FAQ
-          </a>
-          <a href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">
-            Contact
-          </a>
-        </nav>
+          {isDesktop && (
+            <Box display="flex" alignItems="center" gap={4}>
+              <Link href="#features" color="text.secondary" underline="hover">
+                Features
+              </Link>
+              <Link href="#pricing" color="text.secondary" underline="hover">
+                Pricing
+              </Link>
+              <Link href="#testimonials" color="text.secondary" underline="hover">
+                Testimonials
+              </Link>
+              <Link href="#faq" color="text.secondary" underline="hover">
+                FAQ
+              </Link>
+              <Link href="#contact" color="text.secondary" underline="hover">
+                Contact
+              </Link>
+            </Box>
+          )}
 
-        <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">Get Started</Button>
-      </div>
-    </header>
-  )
-}
+          <Button
+            variant="contained"
+            sx={{
+              bgcolor: "primary.main",
+              color: "primary.contrastText",
+              "&:hover": {
+                bgcolor: "primary.dark",
+              },
+            }}
+          >
+            Get Started
+          </Button>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
+};
