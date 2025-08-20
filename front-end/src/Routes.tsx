@@ -11,8 +11,8 @@ const AppRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signin" element={!getToken() ? <SignIn /> : <Navigate to="/home" />} />
+            <Route path="/signup" element={!getToken() ? <SignUp /> : <Navigate to="/home" />} />
             <Route
                 path="/profile"
                 element={getToken() ? <Profile /> : <Navigate to="/signin" />}

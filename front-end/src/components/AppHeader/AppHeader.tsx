@@ -11,7 +11,8 @@ const AppHeader: React.FC = () => {
     const handleLogout = (): void => {
         removeToken();
         setUser(undefined);
-        navigate("/signin", { replace: true });
+        // navigate("/signin", { replace: true });
+        window.location.replace("/signin");
     };
 
     return (

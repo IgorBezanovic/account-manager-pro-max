@@ -79,7 +79,8 @@ const SignIn: React.FC = () => {
 
             setToken(data.jwt);
             setUser(data.user);
-            navigate("/home", { replace: true });
+            // navigate("/home", { replace: true });
+            window.location.replace("/home");
         } catch (err: any) {
             console.error(err);
             setError(err?.message ?? "Something went wrong!");
