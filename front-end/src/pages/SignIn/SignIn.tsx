@@ -13,6 +13,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import useScreenSize from "../../hooks/useScreenSize";
 import { API } from "../../constant";
 import { setToken } from "../../helpers";
+import { toast } from 'react-toastify';
 
 // Define types for form values
 interface FormValues {
@@ -79,11 +80,15 @@ const SignIn: React.FC = () => {
 
             setToken(data.jwt);
             setUser(data.user);
+            toast.success('Successful')
             // navigate("/home", { replace: true });
-            window.location.replace("/home");
+            setTimeout(() => {
+                window.location.replace("/home");
+            }, 1000)
         } catch (err: any) {
             console.error(err);
             setError(err?.message ?? "Something went wrong!");
+            toast.error(err?.message ?? "Something went wrong!")
         } finally {
             setIsLoading(false);
         }
